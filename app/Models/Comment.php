@@ -18,7 +18,7 @@ class Comment extends Model
         'post_id'
     ];
 
-    public function posts(): BelongsTo {
+    public function post(): BelongsTo {
         return $this->belongsTo(Post::class);
     }
 

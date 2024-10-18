@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-app-layout>
     <form method="POST" action="{{ route('posts.update', $post->id) }}">
         @csrf
 
@@ -30,5 +30,5 @@
             </x-primary-button>
         </div>
     </form>
-</x-guest-layout>
+</x-app-layout>
 

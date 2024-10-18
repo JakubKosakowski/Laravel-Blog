@@ -25,10 +25,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        $user = Auth::user();
-        return view('posts.create', [
-            'user' => $user
-        ]);
+        return view('posts.create');
     }
 
     /**
@@ -36,7 +33,13 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $post = new Post($request->all());
+        if (!auth()->check()) {
+            return redirect(route('login'));
+        }
+        $post = new Post();
+        $post->title = $request->input('title');
+        $post->content = $request->input('content');
+        $post->user_id = auth()->id();
         $post->save();
         return redirect(route('posts.index'));
     }

@@ -38,7 +38,7 @@ class CommentController extends Controller
 
         $comment = new Comment();
         $comment->post_id = $post->id;
-        $comment->user_id = Auth::check() ? Auth::id() : null; // Optional user_id for guests
+        $comment->user_id = auth()->check() ? auth()->id() : null;
         $comment->comment = $request->input('comment');
         $comment->save();
         return redirect(route('posts.show', $id));
