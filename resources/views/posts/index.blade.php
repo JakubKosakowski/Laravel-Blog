@@ -28,9 +28,11 @@
                             <td><a href="{{ route('posts.show', $post->id) }}">{{ $post->title }}</a></td>
                             <td>{{ Str::limit($post->content, 50) }}</td> <!-- Limiting content for better table display -->
                             <td>
+                                @can('delete_post', $post)
                                 <button class="btn btn-success delete" data-id="{{$post->id}}">
                                     Delete
-                                </button>    
+                                </button>
+                                @endcan    
                             </td>
                         </tr>
                     @endforeach
