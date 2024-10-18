@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Comment;
+use App\Models\Post;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
@@ -25,9 +28,20 @@ class CommentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'comment' => 'required|string|max:999',
+        ]);
+
+        $post = Post::findOrFail($id);
+
+        $comment = new Comment();
+        $comment->post_id = $post->id;
+        $comment->user_id = Auth::check() ? Auth::id() : null; // Optional user_id for guests
+        $comment->comment = $request->input('comment');
+        $comment->save();
+        return redirect(route('posts.show', $id));
     }
 
     /**
@@ -59,6 +73,11 @@ class CommentController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $comment = Comment::findOrFail($id);
+
+        if (Auth::check() && (Auth::id() === $comment->user_id || Auth::id() === $comment->post->user_id)) {
+            $comment->delete();     
+        }
+        return redirect(route('posts.show', $comment->post_id));  
     }
 }

@@ -13,14 +13,16 @@ class Comment extends Model
     use HasFactory, Notifiable;
 
     protected $fillable = [
-        'comment'
+        'comment',
+        'user_id',
+        'post_id'
     ];
 
     public function posts(): BelongsTo {
         return $this->belongsTo(Post::class);
     }
 
-    public function users(): BelongsTo {
-        return $this->belongsTo(Users::class);
+    public function user(): BelongsTo {
+        return $this->belongsTo(User::class);
     }
 }

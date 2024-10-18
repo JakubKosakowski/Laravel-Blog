@@ -12,13 +12,10 @@
         <!-- Password -->
         <div class="mt-4">
             <x-input-label for="content" class="text-center" :value="__('Content')" />
-
-            <x-textarea-input id="content" class="block mt-1 w-full"
-                            type="content"
-                            name="content"
-                            required autocomplete="content" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                <textarea id="content" maxlength="1500" class="block mt-1 w-full form-control @error('description') is-invalid @enderror" name="content" required autocomplete="content" autofocus>
+                    {{old('content')}}
+                </textarea>
+            <x-input-error :messages="$errors->get('content')" class="mt-2" />
         </div>
 
         <x-text-input id="user_id" name="user_id" type="text" value="{{ $user->id }}" hidden/>

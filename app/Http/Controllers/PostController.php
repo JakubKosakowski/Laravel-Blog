@@ -34,9 +34,9 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(PostsRequest $request)
+    public function store(Request $request)
     {
-        $post = new Post($request->validate());
+        $post = new Post($request->all());
         $post->save();
         return redirect(route('posts.index'));
     }
@@ -46,8 +46,11 @@ class PostController extends Controller
      */
     public function show(string $id)
     {
+        $post = Post::with('comments.user')->findOrFail($id);
+        $user = Auth::user();
         return view('posts.show', [
-            'post' => Post::find($id)
+            'post' => $post,
+            'user' => $user
         ]);
     }
 
@@ -64,10 +67,10 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(PostsRequest $request, string $id)
+    public function update(Request $request, string $id)
     {
         $post = Post::find($id);
-        $post->fill($request->validate());
+        $post->fill($request->all());
         $post->save();
         return redirect(route('posts.show', $post->id));
     }
