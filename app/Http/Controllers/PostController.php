@@ -92,16 +92,7 @@ class PostController extends Controller
         if (auth()->id() != $post->user->id) {
             return redirect(route('posts.index'));
         }
-        try{
-            $post->delete();
-            return response()->json([
-                'status' => 'success'
-            ]);
-        } catch (Exception $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Error'
-            ])->setStatusCode(500);
-        }
+        $post->delete();
+        return redirect(route('posts.index'));
     }
 }
