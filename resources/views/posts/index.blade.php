@@ -6,38 +6,33 @@
     </x-slot>
 
     <x-slot name="slot">
-        <div class="py-12 text-white">
-            <x-button route="posts.create">
-                Create post
-            </x-button>
-            <table class="table table-bordered table-striped">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>User ID</th>
-                        <th>Title</th>
-                        <th>Content</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($posts as $post)
-                        <tr>
-                            <td>{{ $post->id }}</td>
-                            <td>{{ $post->user_id }}</td>
-                            <td><a href="{{ route('posts.show', $post->id) }}">{{ $post->title }}</a></td>
-                            <td>{{ Str::limit($post->content, 50) }}</td> <!-- Limiting content for better table display -->
-                            <td>
-                                @can('delete_post', $post)
-                                <button class="btn btn-success delete" data-id="{{$post->id}}">
-                                    Delete
-                                </button>
-                                @endcan    
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-2">
+                <a href="{{ route('posts.create') }}">
+                    <button class="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 rounded">
+                        Create Post
+                    </button>
+                </a>
         </div>
+        
+
+        @foreach($posts as $post)
+            <div class='py-2'>
+                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg flex items-center">
+                        <div class="p-6 text-gray-900 dark:text-gray-100">
+                            <h1 class="text-3xl font-bold text-white">
+                                <a href="{{ route('posts.show', $post->id) }}">{{ $post->title }}</a>
+                            </h1>
+                            <h3 class="text-1xl">by <span class="text-lg font-bold">{{$post->user->name}}</span></h3>
+                        </div>
+                        @can('delete_post', $post)
+                            <button class="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 rounded delete" data-id="{{$post->id}}">
+                                Delete
+                            </button>
+                        @endcan
+                    </div>
+                </div>
+            </div>
+        @endforeach
     </x-slot>
 </x-app-layout>
