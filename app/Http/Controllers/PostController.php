@@ -25,6 +25,9 @@ class PostController extends Controller
      */
     public function create()
     {
+        if (!auth()->check()) {
+            return redirect(route('login'));
+        }
         return view('posts.create');
     }
 
@@ -62,6 +65,11 @@ class PostController extends Controller
      */
     public function edit(string $id)
     {
+        $post = Post::find($id);
+
+        if (auth()->id() != $post->user->id) {
+            return redirect(route('posts.index'));
+        }
         return view('posts.edit', [
             'post' => Post::find($id)
         ]);
@@ -84,6 +92,9 @@ class PostController extends Controller
     public function destroy(string $id)
     {
         $post = Post::find($id);
+        if (auth()->id() != $post->user->id) {
+            return redirect(route('posts.index'));
+        }
         try{
             $post->delete();
             return response()->json([

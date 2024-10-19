@@ -20,11 +20,11 @@ class Post extends Model
         'user_id'
     ];
 
-    public function users(): BelongsTo {
+    public function user() {
         return $this->belongsTo(User::class);
     }
 
-    public function comments(): HasMany {
+    public function comments() {
         return $this->hasMany(Comment::class);
     }
 }
