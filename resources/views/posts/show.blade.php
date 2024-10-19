@@ -15,26 +15,27 @@
                 @can('edit_post', $post)
                 <div class="flex justify-end w-auto">
                     <a href="{{route('posts.edit', $post->id)}}">
-                        <button class="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 rounded">
+                        <button class="bg-indigo-900 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
                             Edit
                         </button>
                     </a>
                 </div>
                 @endcan
             </div>
-            <div class="bg-white dark:bg-gray-800 mt-2 mb-3 overflow-hidden shadow-sm sm:rounded-lg flex flex-col justify-start">
+            <div class="mt-5 mb-3 overflow-hidden flex flex-col justify-start">
                 @foreach($post->comments as $comment)
-                <div class="px-5">
+                <div class="px-5 py-5 mt-5 dark:bg-gray-800 shadow-sm sm:rounded-lg">
                     <strong>{{ $comment->user ? $comment->user->name : 'Guest' }}</strong> said:
                     <p>{{ $comment->comment }}</p>
                     @can('delete_comment', $comment)
-                        <form action="{{ route('comments.destroy', $comment->id) }}" method="POST">
+                        <form class="flex justify-end" action="{{ route('comments.destroy', $comment->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <button class="bg-indigo-900 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
+                                Delete
+                            </button>
                         </form>
                     @endcan
-                    <hr>
                 </div>
             @endforeach
             </div>
@@ -46,12 +47,12 @@
                             @csrf
         
                             <textarea 
-                                id="comment" maxlength="1500"
-                                class="w-full h-32 p-3 border text-black border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
-                                placeholder="Enter your comment here..."
-                                name="comment"
-                                required autocomplete="comment"></textarea>
-                            <button type="submit" class="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 rounded">
+                            id="comment" maxlength="1500"
+                            class="w-full h-32 p-3 border border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm" 
+                            placeholder="Enter your comment here..."
+                            name="comment"
+                            required autocomplete="comment"></textarea>
+                            <button type="submit" class="bg-indigo-900 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
                                 Comment
                             </button>
                         </form>

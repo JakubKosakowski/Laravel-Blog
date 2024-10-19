@@ -8,7 +8,7 @@
     <x-slot name="slot">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-2">
                 <a href="{{ route('posts.create') }}">
-                    <button class="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 rounded">
+                    <button class="bg-indigo-900 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
                         Create Post
                     </button>
                 </a>
@@ -26,7 +26,7 @@
                             <h3 class="text-1xl">by <span class="text-lg font-bold">{{$post->user->name}}</span></h3>
                         </div>
                         @can('delete_post', $post)
-                            <button class="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 rounded delete" data-id="{{$post->id}}">
+                            <button class="bg-indigo-900 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded delete" data-id="{{$post->id}}">
                                 Delete
                             </button>
                         @endcan

@@ -29,7 +29,7 @@
             </div>
     
             <div class="flex items-center justify-center mt-4">
-                <button class="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 rounded">
+                <button class="bg-indigo-900 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
                     Create
                 </button>
             </div>
