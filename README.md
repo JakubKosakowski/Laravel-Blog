@@ -113,13 +113,15 @@ Before you go into below section, run XAMPP Control Panel and start MySQL and Ap
        ```
 
 ### Generated login data
-Login: Jane.Doe@test.com
+Login: Jane.Doe@test.com\
 Password: password
 
-Login: John.Doe@test.com
+
+Login: John.Doe@test.com\
 Password: password
 
-Login: M.Kubrick@test.com
+
+Login: M.Kubrick@test.com\
 Password: password
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
