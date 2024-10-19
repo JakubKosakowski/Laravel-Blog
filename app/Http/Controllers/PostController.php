@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Http\Requests\PostsRequest;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
@@ -34,14 +33,12 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PostsRequest $request)
     {
         if (!auth()->check()) {
             return redirect(route('login'));
         }
-        $post = new Post();
-        $post->title = $request->input('title');
-        $post->content = $request->input('content');
+        $post = new Post($request->validated());
         $post->user_id = auth()->id();
         $post->save();
         return redirect(route('posts.index'));
@@ -78,10 +75,10 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(PostsRequest $request, string $id)
     {
         $post = Post::find($id);
-        $post->fill($request->all());
+        $post->fill($request->validated());
         $post->save();
         return redirect(route('posts.show', $post->id));
     }
