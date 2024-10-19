@@ -3,24 +3,22 @@
         <div class="container mx-auto px-4 py-2 flex flex-col text-white">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg flex items-center flex-col justify-start">
                 <div>
-                    <div>
-                        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                    <div class="px-6 py-2">
+                        <h2 class="font-semibold text-3xl text-gray-800 dark:text-gray-200 leading-tight">
                             {{ $post->title }}
                         </h2>
                     </div>
-                    <div class="p-6 text-gray-900 dark:text-gray-100">
+                    <div class="px-6 text-gray-900 dark:text-gray-100">
                         <p>{{$post -> content}}</p>
                     </div>
-                </div>
-                @can('edit_post', $post)
-                <div class="flex justify-end w-auto">
+                    @can('edit_post', $post)
                     <a href="{{route('posts.edit', $post->id)}}">
-                        <button class="bg-indigo-900 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
+                        <button class="bg-indigo-900 hover:bg-indigo-700 text-white font-bold py-2 px-6 ml-6 my-3 rounded">
                             Edit
                         </button>
                     </a>
-                </div>
                 @endcan
+                </div>
             </div>
             <div class="mt-5 mb-3 overflow-hidden flex flex-col justify-start">
                 @foreach($post->comments as $comment)
